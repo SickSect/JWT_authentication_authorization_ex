@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: facade-authentication
+
+server:
+  port: 8084
