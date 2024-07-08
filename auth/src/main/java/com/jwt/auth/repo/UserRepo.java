@@ -11,7 +11,7 @@ public class UserRepo {
          */
         UserEntity user = new UserEntity();
         user.setEmail(email);
-        user.setPassword("password");
+        user.setPassword("{noop}password");
         user.setFirstName("firstName");
         user.setLastName("lastName");
         return user;

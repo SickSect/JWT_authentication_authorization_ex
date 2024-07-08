@@ -54,9 +54,10 @@ public class JwtUtils {
          * также установка даты истечения срока дейтсивя токена
          */
         Claims claims = Jwts.claims()
-                .subject(user.getEmail()).build();
-        claims.put("FirstName", user.getFirstName());
-        claims.put("LastName", user.getLastName());
+                .subject(user.getEmail()).add("FirstName", user.getFirstName())
+                .add("LastName", user.getLastName()).build();
+/*        claims.put("FirstName", user.getFirstName());
+        claims.put("LastName", user.getLastName());*/
         Date creationDate = new Date();
         Date expirationDate = new Date(creationDate.getTime() + 3600 * 1000);
         return Jwts.builder()

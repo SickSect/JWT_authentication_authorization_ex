@@ -28,12 +28,13 @@ public class SecurityConfig {
         return builder.build();
     }
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(e -> e.disable())
                 .cors(e -> e.disable())
                 .authorizeHttpRequests(e ->
-                        e.requestMatchers("/rest/home/**").permitAll()
+                        e.requestMatchers("/rest/auth/**").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(e -> e.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();

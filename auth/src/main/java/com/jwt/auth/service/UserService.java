@@ -20,7 +20,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = repo.findUserByEmail("email@email.com");
         List<String> roles = new ArrayList<>();
-        roles.add("ROLE_USER");
+        roles.add("USER");
         UserDetails details = User.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
