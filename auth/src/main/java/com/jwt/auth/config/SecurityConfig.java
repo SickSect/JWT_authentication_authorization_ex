@@ -1,6 +1,7 @@
 package com.jwt.auth.config;
 
 import com.jwt.auth.service.UserService;
+import com.jwt.auth.util.JwtCustomFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.net.http.HttpRequest;
 
@@ -20,6 +22,7 @@ import java.net.http.HttpRequest;
 public class SecurityConfig {
 
     private final UserService userService;
+    private final JwtCustomFilter jwtCustomFilter;
 
     @Bean
     public AuthenticationManager getAuthenticationManager(HttpSecurity http) throws Exception {
@@ -36,7 +39,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(e ->
                         e.requestMatchers("/rest/auth/**").permitAll()
                                 .anyRequest().authenticated())
-                .sessionManagement(e -> e.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(e -> e.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtCustomFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
