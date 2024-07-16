@@ -27,6 +27,17 @@ public class JwtCustomFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
     private final ObjectMapper objectMapper;
+
+    /**
+     * Переопределили метод фильтра
+     * чтобы каждый новый запрос прогонялся через этот фильтр
+     * и читал\валидировал входящий токен
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
